@@ -1,0 +1,49 @@
+name: Update Bing Wallpapers
+on: 
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron:  '0 15 * * *'
+jobs:
+  Update:
+    if: "!contains(github.event.commits[0].message, '[auto]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - name: Test with environment variables
+        run: echo current date - $DATE
+        env:
+          DATE: ${{ steps.date.outputs.date }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@main
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm install
+      - name: Update wallpaper
+        run: node index.js
+        # run: npm run today
+      - name: Commit files
+        run: |
+         git config --local user.email "zongyanqi@foxmail.com"
+         git config --local user.name "xiaoyu2er"
+         git add .
+         git commit -m "[auto] update README.md"
+      - name: Push changes
+        uses:  ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.MY_GIT_TOKEN }}
+          branch: master
