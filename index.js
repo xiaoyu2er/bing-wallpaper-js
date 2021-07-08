@@ -73,22 +73,22 @@ function getLocalImages() {
   var readme = fs.readFileSync("./README.md").toString();
   var images = [];
 
-//   var regex = /(\d{4}-\d{2}-\d{2})\s\|\s\[(.+?)\]\((https?:\/\/[a-zA-Z\./0-9_?=-]+)\)/g;
-//   //   [2021-07-08](https://cn.bing.com/th?id=OHR.LakeUrmia_EN-US4986086287_UHD.jpg "a title")
-//   do {
-//     var result = regex.exec(readme);
-//     if (result) {
-//       var startdate = result[1];
-//       var copyright = result[2];
-//       var url = result[3];
+  //   var regex = /(\d{4}-\d{2}-\d{2})\s\|\s\[(.+?)\]\((https?:\/\/[a-zA-Z\./0-9_?=-]+)\)/g;
+  //   //   [2021-07-08](https://cn.bing.com/th?id=OHR.LakeUrmia_EN-US4986086287_UHD.jpg "a title")
+  //   do {
+  //     var result = regex.exec(readme);
+  //     if (result) {
+  //       var startdate = result[1];
+  //       var copyright = result[2];
+  //       var url = result[3];
 
-//       images.push({
-//         startdate: startdate,
-//         url: getImageUrl(url),
-//         copyright,
-//       });
-//     }
-//   } while (result);
+  //       images.push({
+  //         startdate: startdate,
+  //         url: getImageUrl(url),
+  //         copyright,
+  //       });
+  //     }
+  //   } while (result);
 
   // ![](https://cn.bing.com/th?id=OHR.AppalachianTrail_ZH-CN5076145300_UHD.jpg&pid=hp&rs=1&c=4&w=384 "")[2021-07-07]
   var regex2 = /\((https?:\/\/[a-zA-Z\./0-9_?&=-]+)\s+"(.+?)"\)\[(\d{4}-\d{2}-\d{2})\]/g;
@@ -99,11 +99,13 @@ function getLocalImages() {
       var copyright = result[2];
       var startdate = result[3];
 
-      images.push({
-        startdate: startdate,
-        url: getImageUrl(url),
-        copyright,
-      });
+      if (!images.find((i) => i.startdate == startdate)) {
+        images.push({
+          startdate: startdate,
+          url: getImageUrl(url),
+          copyright,
+        });
+      }
     }
   } while (result);
 
