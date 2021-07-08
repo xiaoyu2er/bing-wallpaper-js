@@ -100,6 +100,7 @@ function getLocalImages() {
       var startdate = result[3];
 
       if (!images.find((i) => i.url == getImageUrl(url))) {
+        // 避免重复
         images.push({
           startdate: startdate,
           url: getImageUrl(url),
