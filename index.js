@@ -99,14 +99,12 @@ function getLocalImages() {
       var copyright = result[2];
       var startdate = result[3];
 
-      if (!images.find((i) => i.url == getImageUrl(url))) {
-        // 避免重复
-        images.push({
-          startdate: startdate,
-          url: getImageUrl(url),
-          copyright,
-        });
-      }
+      // 避免重复
+      images.push({
+        startdate: startdate,
+        url: getImageUrl(url),
+        copyright,
+      });
     }
   } while (result);
 
@@ -140,10 +138,11 @@ async function main() {
   }
 
   localImages = localImages.sort((a, b) => {
-    return parseFloat(b.startdate.replace("-", "")) - parseFloat(a.startdate.replace("-", ""));
+    return +new Date(b.startdate) - +new Date(a.startdate);
   });
+
   console.log("---------");
-  console.log(localImages);
+  console.log(localImages.map((i) => i.startdate));
 
   writeToLocal(localImages);
 }
