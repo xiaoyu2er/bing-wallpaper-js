@@ -99,7 +99,7 @@ function getLocalImages() {
       var copyright = result[2];
       var startdate = result[3];
 
-      if (!images.find((i) => i.startdate == startdate)) {
+      if (!images.find((i) => i.url == getImageUrl(url))) {
         images.push({
           startdate: startdate,
           url: getImageUrl(url),
