@@ -95,16 +95,18 @@ function getLocalImages() {
   do {
     var result = regex2.exec(readme);
     if (result) {
-      var url = result[1];
+      var url = getImageUrl(result[1]);
       var copyright = result[2];
       var startdate = result[3];
 
-      // 避免重复
-      images.push({
-        startdate: startdate,
-        url: getImageUrl(url),
-        copyright,
-      });
+      if (!images.find((img) => img.url == url)) {
+        // 避免重复
+        images.push({
+          startdate: startdate,
+          url: url,
+          copyright,
+        });
+      }
     }
   } while (result);
 
