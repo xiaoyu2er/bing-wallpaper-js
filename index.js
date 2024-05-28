@@ -72,24 +72,6 @@ function imageToMarkdown(image, w, h) {
 function getLocalImages() {
   var readme = fs.readFileSync("./README.md").toString();
   var images = [];
-
-  //   var regex = /(\d{4}-\d{2}-\d{2})\s\|\s\[(.+?)\]\((https?:\/\/[a-zA-Z\./0-9_?=-]+)\)/g;
-  //   //   [2021-07-08](https://cn.bing.com/th?id=OHR.LakeUrmia_EN-US4986086287_UHD.jpg "a title")
-  //   do {
-  //     var result = regex.exec(readme);
-  //     if (result) {
-  //       var startdate = result[1];
-  //       var copyright = result[2];
-  //       var url = result[3];
-
-  //       images.push({
-  //         startdate: startdate,
-  //         url: getImageUrl(url),
-  //         copyright,
-  //       });
-  //     }
-  //   } while (result);
-
   // ![](https://cn.bing.com/th?id=OHR.AppalachianTrail_ZH-CN5076145300_UHD.jpg&pid=hp&rs=1&c=4&w=384 "")[2021-07-07]
   var regex2 = /\((https?:\/\/[a-zA-Z\./0-9_?&=-]+)\s+"(.+?)"\)\[(\d{4}-\d{2}-\d{2})\]/g;
   do {
@@ -100,7 +82,6 @@ function getLocalImages() {
       var startdate = result[3];
 
       if (!images.find((img) => img.url == url)) {
-        // 避免重复
         images.push({
           startdate: startdate,
           url: url,
@@ -155,7 +136,7 @@ function writeToLocal(images) {
     var img = imageToMarkdown(images[0], 1000);
     content += img;
 
-    content += `\n\n更新于 ${formatDate(new Date())}\n`;
+    content += `\n\nUpdated at ${formatDate(new Date())}\n`;
   }
 
   if (images[1]) {
