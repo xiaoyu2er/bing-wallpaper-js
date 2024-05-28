@@ -2,7 +2,7 @@
 
 ![](https://cn.bing.com/th?id=OHR.MeteoraMonastery_EN-US5286293282_UHD.jpg&pid=hp&rs=1&c=4&w=1000 "Roussanou Monastery, Meteora, Thessaly, Greece (© Marius Roman/Getty Images)")[2024-05-28](https://cn.bing.com/th?id=OHR.MeteoraMonastery_EN-US5286293282_UHD.jpg)
 
-更新于 2024-05-28 15:11:13
+Updated at 2024-05-28 21:47:49
 
 |      |      |      |
 | :----: | :----: | :----: |
